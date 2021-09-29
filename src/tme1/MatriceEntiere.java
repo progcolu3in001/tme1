@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class MatriceEntiere {
-	int matrice[][];
+	private int matrice[][];
 	
 	public MatriceEntiere(int lignes, int colonnes) {
 		matrice = new int[lignes][colonnes];
@@ -39,7 +39,7 @@ public class MatriceEntiere {
 	void setElem(int i, int j, int val) {
 		matrice[i][j] = val;
 	}
-	
+		
 	@Override
 	public String toString() {
 		String res ="";
@@ -63,7 +63,10 @@ public class MatriceEntiere {
 		}
 	}
 	
-	public void somme(MatriceEntiere m) {
+	public void somme(MatriceEntiere m) throws TaillesNonConcordantesException {
+		if (matrice.length != m.matrice.length) {
+			throw new TaillesNonConcordantesException();
+		}
 		for(int x = 0; x < matrice.length; x++)
 		{
 			for(int y = 0; y < matrice[0].length; y++) {
@@ -81,7 +84,11 @@ public class MatriceEntiere {
 		}
 	}
 
-	public MatriceEntiere produitMatrice(MatriceEntiere m) {
+	public MatriceEntiere produitMatrice(MatriceEntiere m) throws TaillesNonConcordantesException {
+		if (matrice[0].length != m.matrice.length) {
+			throw new TaillesNonConcordantesException();
+		}
+		
 		int[][] res = new int[matrice[0].length][m.matrice.length];
 
 		for(int x = 0; x < res.length; x++) {
@@ -89,7 +96,6 @@ public class MatriceEntiere {
 				
 				int stock = 0;
 				for(int a = 0; a < res.length; a++) {
-					System.out.println(x + "\t" + a);
 					stock += (matrice[x][a] * m.matrice[a][y]);
 				}
 				
@@ -99,6 +105,19 @@ public class MatriceEntiere {
 		MatriceEntiere ma = new MatriceEntiere(matrice[0].length, m.matrice.length);
 		ma.matrice = res;
 		return ma;		
+	}
+	
+	public MatriceEntiere transposeMatrice() {
+		MatriceEntiere res = new MatriceEntiere(matrice[0].length, matrice.length);
+		
+		for(int x = 0; x < matrice.length; x++)
+		{
+			for(int y = 0; y < matrice[0].length; y++) {
+				res.matrice[y][x] = matrice[x][y];
+			}
+		}	
+		
+		return res;
 	}
 	
 	
