@@ -89,13 +89,13 @@ public class MatriceEntiere {
 			throw new TaillesNonConcordantesException();
 		}
 		
-		int[][] res = new int[matrice[0].length][m.matrice.length];
+		int[][] res = new int[matrice.length][m.matrice[0].length];
 
 		for(int x = 0; x < res.length; x++) {
 			for(int y = 0; y < res[0].length; y++) {
 				
 				int stock = 0;
-				for(int a = 0; a < res.length; a++) {
+				for(int a = 0; a < matrice[0].length; a++) {
 					stock += (matrice[x][a] * m.matrice[a][y]);
 				}
 				
